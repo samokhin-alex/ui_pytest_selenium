@@ -9,10 +9,10 @@ class LoginPage(BasePage):
         assert self.driver.current_url == self.url, f'URL = {self.driver.current_url}, должен быть {self.url}'
 
     def login(self, username, password):
-        self.open()
+        self.open_url()
         self.type_text(LoginPageLocators.USER_NAME, username)
         self.type_text(LoginPageLocators.PASSWORD, password)
-        self.click(LoginPageLocators.LOGIN_BUTTON)
-        assert self.driver.current_url(ReadConfig.get_inventory_url())
+        self.driver.find_element(*LoginPageLocators.LOGIN_BUTTON).click()
+        assert self.driver.current_url == ReadConfig.get_inventory_url()
 
 
