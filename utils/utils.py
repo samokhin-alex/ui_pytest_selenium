@@ -19,6 +19,11 @@ class ReadConfig:
         return inventory_url
 
     @classmethod
+    def get_cart_url(cls):
+        cart_url = config.get('common value', 'cart_url')
+        return cart_url
+
+    @classmethod
     def get_standard_user_login(cls):
         standard_user_login = config.get('common value', 'standard_user_login')
         return standard_user_login
@@ -27,3 +32,18 @@ class ReadConfig:
     def get_standard_user_password(cls):
         standard_user_password = config.get('common value', 'standard_user_password')
         return standard_user_password
+
+    @classmethod
+    def get_valid_first_name(cls):
+        valid_first_name = config.get('common value', 'valid_first_name')
+        return valid_first_name
+
+    @classmethod
+    def get_valid_last_name(cls):
+        valid_last_name = config.get('common value', 'valid_last_name')
+        return valid_last_name
+
+    @classmethod
+    def get_valid_postel_code(cls):
+        valid_postel_code = config.get('common value', 'valid_postel_code')
+        return valid_postel_code

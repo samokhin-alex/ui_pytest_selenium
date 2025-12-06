@@ -1,7 +1,10 @@
 from selenium.webdriver.common.by import By
 import time
 from pages.base_page import BasePage
+from utils.utils import ReadConfig
 from .locators_page import MainPageLocators
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class MainPage(BasePage):
@@ -28,17 +31,21 @@ class MainPage(BasePage):
         badges = cart.find_elements(By.CSS_SELECTOR, '[data-test="shopping-cart-badge"]')
         assert len(badges) == 0, f"Корзина не пуста! Обнаружен бейдж с количеством: {badges[0].text}"
 
-    def add_1_item_to_cart_button(self):
+    def add_1_item_to_cart(self):
         buttons = self.driver.find_elements(*MainPageLocators.ADD_TO_CART_BUTTONS)
         buttons[0].click()
         time.sleep(0.5)
         buttons = self.driver.find_elements(*MainPageLocators.REMOVE_FROM_CART_BUTTONS)
         assert buttons[0].text == 'Remove', f'Кнопка добавления в корзину не изменила названия. Ожидалось "Remove", получено "{buttons[0].text}"'
 
-    def add_all_item_to_cart_button(self):
-        buttons = self.driver.find_elements(*MainPageLocators.ADD_TO_CART_BUTTONS)
-        for button in buttons:
+    def add_all_item_to_cart(self):
+        items = self.driver.find_elements(*MainPageLocators.INVENTORY_ITEMS)
+
+        # Кликаем по кнопкам БЕЗ ожиданий между итерациями
+        for item in items:
+            button = item.find_element(By.CSS_SELECTOR, 'button')
             button.click()
+
 
     def get_cart_count(self):
         try:
@@ -56,3 +63,14 @@ class MainPage(BasePage):
             f'В корзине должно быть {expected_count} товаров, а там {actual_count}'
         print(f"✓ В корзине {actual_count} товаров (ожидалось {expected_count})")
 
+    def open_cart(self):
+        button = self.driver.find_element(*MainPageLocators.CART)
+        button.click()
+
+    def should_be_curt_url(self):
+        actual_url = self.driver.current_url
+        assert actual_url == ReadConfig.get_cart_url(), f'Страница корзины не открыта. Открыт URL: {actual_url}'
+
+    def get_items_count(self):
+        items_count = len(self.driver.find_elements(*MainPageLocators.INVENTORY_ITEMS))
+        return items_count

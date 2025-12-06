@@ -9,9 +9,21 @@ class LoginPageLocators:
 class MainPageLocators:
     LOGO_TEXT = (By.CSS_SELECTOR, '[class="header_label"] [class="app_logo"]')
     INVENTORY_LIST = (By.CSS_SELECTOR, '[class="inventory_list"]')
-    INVENTORY_ITEMS = (By.CSS_SELECTOR, '[class="inventory_item"]')
+    INVENTORY_ITEMS = (By.CSS_SELECTOR, '[data-test="inventory-item"]')
     INVENTORY_ITEM_IMAGES = (By.CSS_SELECTOR, '[class="inventory_item_img"] img')
     INVENTORY_ITEM_PRICES = (By.CSS_SELECTOR, '[class="inventory_item_price"]')
-    ADD_TO_CART_BUTTONS = (By.CSS_SELECTOR, '[class="btn btn_primary btn_small btn_inventory "]')
+    ADD_TO_CART_BUTTONS = (By.CSS_SELECTOR, '[class="inventory_item"] button')
     REMOVE_FROM_CART_BUTTONS = (By.CSS_SELECTOR, '[class="btn btn_secondary btn_small btn_inventory "]')
     CART = (By.CSS_SELECTOR, '[data-test="shopping-cart-link"]')
+
+class CartPageLocators:
+    ADDED_ITEMS = (By.CSS_SELECTOR, '[class="cart_item"]')
+    DELETE_FROM_CART_BUTTON = (By.CSS_SELECTOR, '[class="btn btn_secondary btn_small cart_button"]')
+    REMOVED_CART_ITEMS = (By.CSS_SELECTOR, '[class="removed_cart_item"]')
+    CHECKOUT_BUTTON = (By.ID, 'checkout')
+
+class CheckoutPageLocators:
+    FIRST_NAME_INPUT_FIELD = (By.ID, 'first-name')
+    LAST_NAME_INPUT_FIELD = (By.ID, 'last-name')
+    POSTAL_CODE_INPUT_FIELD = (By.ID, 'postal-code')
+    CONTINUE_BUTTON = (By.ID, 'continue')

@@ -1,5 +1,8 @@
 import time
 import pytest
+
+from pages.cart_page import CartPage
+from pages.checkout_page import CheckoutPage
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
 from utils.utils import ReadConfig
@@ -19,5 +22,15 @@ def login_page(driver):
 
 @pytest.fixture(scope='function')
 def main_page(driver):
-    url = ReadConfig().get_inventory_url()
+    url = ReadConfig().get_url()
     return MainPage(driver, url)
+
+@pytest.fixture(scope='function')
+def cart_page(driver):
+    url = ReadConfig().get_url()
+    return CartPage(driver, url)
+
+@pytest.fixture(scope='function')
+def checkout_page(driver):
+    url = ReadConfig().get_url()
+    return CheckoutPage(driver, url)
